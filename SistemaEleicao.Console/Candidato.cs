@@ -17,4 +17,8 @@ public class Candidato
     public string Nome { get; }
 
     public int Numero { get; }
+
+    public int Votos { get; private set; }
+
+    internal void ReceberVoto() => Votos++;
 }
