@@ -26,6 +26,16 @@ public class EleicaoManager
     public Candidato? BuscarCandidatoPorNumero(int numero) =>
         _candidatos.FirstOrDefault(c => c.Numero == numero);
 
+    public IReadOnlyList<Candidato> ObterVencedores()
+    {
+        var maiorVotacao = _candidatos.Select(c => c.Votos).DefaultIfEmpty(0).Max();
+
+        if (maiorVotacao == 0)
+            return [];
+
+        return _candidatos.Where(c => c.Votos == maiorVotacao).ToList();
+    }
+
     public Eleitor CadastrarEleitor(string titulo)
     {
         var eleitor = new Eleitor(titulo);

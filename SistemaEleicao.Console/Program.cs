@@ -105,15 +105,10 @@ void Apurar()
     Console.WriteLine($"Brancos: {eleicao.VotosBrancos}");
     Console.WriteLine($"Nulos: {eleicao.VotosNulos}");
 
-    var maiorVotacao = eleicao.Candidatos.Count == 0 ? 0 : eleicao.Candidatos.Max(c => c.Votos);
-    if (maiorVotacao == 0)
-    {
+    var vencedores = eleicao.ObterVencedores();
+    if (vencedores.Count == 0)
         Console.WriteLine("Vencedor: nenhum candidato recebeu votos.");
-        return;
-    }
-
-    var vencedores = eleicao.Candidatos.Where(c => c.Votos == maiorVotacao).ToList();
-    if (vencedores.Count == 1)
+    else if (vencedores.Count == 1)
         Console.WriteLine($"Vencedor: {vencedores[0].Nome} ({vencedores[0].Numero})");
     else
         Console.WriteLine($"Empate entre: {string.Join(", ", vencedores.Select(c => $"{c.Nome} ({c.Numero})"))}");
